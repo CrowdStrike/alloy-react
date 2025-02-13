@@ -1,0 +1,9 @@
+body {
+  /* override height: 100% from PF which messes up foundry-js ResizeTracker */
+  height: auto;
+}
+
+.alloy-main {
+  /* match other falcon details pane components */
+  padding: 12px;
+}
