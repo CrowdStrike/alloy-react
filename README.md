@@ -54,6 +54,9 @@ const routes = [
 return <ConsolePage title="App Title" routes={routes} />;
 ```
 
+> [!TIP]
+> When you create Falcon navigation links for this multi-page application, make sure the `navigation.links[].path` in `manifest.yml` match the `path` provided in the `routes` attribute.
+
 ## API Reference
 
 ### Foundry context: `FoundryProvider` and `useFoundry`
