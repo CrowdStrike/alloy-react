@@ -8,6 +8,10 @@ _React + PatternFly building blocks for Foundry UI's_
 
 This project is meant to make it much easier to start building robust UI's within Foundry applications, and is opinionated on the use of React.js and [PatternFly](https://www.patternfly.org/).
 
+## Support
+
+This repository is an open source project, not a CrowdStrike product. As such, it carries no formal support, expressed or implied.
+
 ## Quick Start
 
 TODO after v0.0.1 publication
@@ -90,3 +94,6 @@ return (
   </ConsoleExtension>
 );
 ```
+
+> [!IMPORTANT]
+> Note that the `data` object returned by `useFoundry()` is a React state object, which the Foundry provider correctly updates via a `falcon.events.on('data')` event handler. Do not use the `falcon.data` object, since it will not correctly re-render your UI when a data event occurs.

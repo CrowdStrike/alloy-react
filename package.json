@@ -2,6 +2,15 @@
   "name": "@crowdstrike/alloy-react",
   "version": "0.0.1",
   "description": "React + PatternFly building blocks for Foundry UI's",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrowdStrike/alloy-react.git"
+  },
+  "homepage": "https://github.com/CrowdStrike/alloy-react",
+  "bugs": {
+    "url": "https://github.com/CrowdStrike/alloy-react/issues"
+  },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
