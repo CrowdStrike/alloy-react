@@ -12,9 +12,11 @@ This project is meant to make it much easier to start building robust UI's withi
 
 This repository is an open source project, not a CrowdStrike product. As such, it carries no formal support, expressed or implied.
 
-## Quick Start
+## Getting Started
 
-TODO after v0.0.1 publication
+If you have an existing Foundry app where you want to use Alloy's React bindings, you can `npm install @crowdstrike/alloy-react`. Then refer to the reference below.
+
+However, if you're just getting started, you're better of cloning the [alloy-quickstart](https://github.com/CrowdStrike/alloy-quickstart) app, which contains Alloy's opinionated project structure and a few examples. You can still come back here and use the reference as you build.
 
 ## Component Reference
 
