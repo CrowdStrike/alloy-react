@@ -14,9 +14,9 @@ This repository is an open source project, not a CrowdStrike product. As such, i
 
 ## Getting Started
 
-If you have an existing Foundry app where you want to use Alloy's React bindings, you can `npm install @crowdstrike/alloy-react`. Then refer to the reference below.
+If you have an existing Foundry app where you want to use Alloy's React bindings, you can `npm install --save @crowdstrike/alloy-react`. Then refer to the reference below.
 
-However, if you're just getting started, you're better of cloning the [alloy-quickstart](https://github.com/CrowdStrike/alloy-quickstart) app, which contains Alloy's opinionated project structure and a few examples. You can still come back here and use the reference as you build.
+However, if you're just getting started, you're better off cloning the [alloy-quickstart](https://github.com/CrowdStrike/alloy-quickstart) app, which contains Alloy's opinionated project structure and a few examples. You can still come back here and use the reference as you build.
 
 ## Component Reference
 
