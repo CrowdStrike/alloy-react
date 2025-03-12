@@ -61,6 +61,41 @@ return <ConsolePage title="App Title" routes={routes} />;
 > [!TIP]
 > When you create Falcon navigation links for this multi-page application, make sure the `navigation.links[].path` in `manifest.yml` match the `path` provided in the `routes` attribute.
 
+### `CollectionEditor`
+
+Component that allows collection objects to be read, modified, and deleted as JSON. You can determine the extent to which an end user can modify collection name and object name to interact with, as well as which actions are available to the user.
+
+Using the CollectionEditor doesn't _create_ collections. To do that, you need to define the collection in `manifest.yml`. See the Foundry docs.
+
+**Basic collection editor**
+
+In this example, the user has full control over the collection name and object name, as well as whether to load, save, or delete the object.
+
+![The default, fully modifiable collection editor](docs/img/collection-editor-default.png)
+
+```jsx
+<CollectionEditor />
+```
+
+**Limited to one object**
+
+In this example, the user can only interact with the object specified by the app author. The object value is loaded immediately on render and cannot be deleted. A default value is populated in the editor if the object doesn't exist yet. This is useful for allowing users to interact with "global settings" for the application.
+
+![A limited collection editor](docs/img/collection-editor-limited.png)
+
+```jsx
+<CollectionEditor
+  collectionNameDefault="config"
+  collectionNameEditable={false}
+  objectNameDefault="default"
+  objectNameEditable={false}
+  loadObjectValue={true}
+  loadButtonVisible={false}
+  deleteButtonVisible={false}
+  objectValueDefault={{ special_key: "PLACEHOLDER" }}
+/>
+```
+
 ## API Reference
 
 ### Foundry context: `FoundryProvider` and `useFoundry`
