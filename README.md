@@ -63,9 +63,10 @@ return <ConsolePage title="App Title" routes={routes} />;
 
 ### `CollectionEditor`
 
-Component that allows collection objects to be read, modified, and deleted as JSON. You can determine the extent to which an end user can modify collection name and object name to interact with, as well as which actions are available to the user.
+Component that allows collection objects to be read, modified, and deleted as JSON. You can determine the extent to which an end user can modify collection name and object name to interact with, as well as which actions are available to the user. (Note that the editor doesn't support selecting existing collections or objects from a dropdown, so the user will need to know the _exact_ name for the items they want to edit.)
 
-Using the CollectionEditor doesn't _create_ collections. To do that, you need to define the collection in `manifest.yml`. See the Foundry docs.
+> [!IMPORTANT]
+> The CollectionEditor can't _create collections_, it can only create objects in an _existing collection_. To create a collection, use either the Foundry CLI or App Builder UI. See the [Foundry collection docs](https://falcon.crowdstrike.com/login/?unilogin=true&next=/documentation/page/vc1f2a56/collections) for more help.
 
 **Basic collection editor**
 
