@@ -99,3 +99,25 @@ return (
 
 > [!IMPORTANT]
 > Note that the `data` object returned by `useFoundry()` is a React state object, which the Foundry provider correctly updates via a `falcon.events.on('data')` event handler. Do not use the `falcon.data` object, since it will not correctly re-render your UI when a data event occurs.
+
+### `useCollectionObject`
+
+Query a collection object. This hook is useful to look up a well known value when a component renders, for example a configuration value.
+
+```javascript
+const [config, configReady, configError] = useCollectionObject(
+  "config",
+  "default"
+);
+useEffect(() => {
+  if (!configReady) return;
+  if (configError) return; // TODO: handle error
+  // TODO: use config value
+}, [configReady]);
+```
+
+### Types
+
+Use these types to perform type assertions on responses from foundry-js and safely interact with those responses (rather than asserting them as `any`). See the documentation for each type for more details.
+
+- `CollectionReadResponse` - Returned from `falcon.collection().read()`.
