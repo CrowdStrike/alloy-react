@@ -6,17 +6,18 @@ interface CanError {
   }[];
 }
 
-/** Returned by `falcon.collection().read()`. Example:
+/**
+ * Returned by `falcon.collection().read()`. Example:
  * ```
  * falcon
-      .collection({ collection: "foo" })
-      .read("bar")
-      .then((r: CollectionReadResponse) => {
-        if (r.errors && r.errors.length > 0) {
-          setError(r.errors[0].message);
-        } else {
-          setValue(r);
-        }
+ *   .collection({ collection: "foo" })
+ *   .read("bar")
+ *   .then((r: CollectionReadResponse) => {
+ *     if (r.errors && r.errors.length > 0) {
+ *       setError(r.errors[0].message);
+ *     } else {
+ *       setValue(r);
+ *     }});
  * ```
  */
 export interface CollectionReadResponse extends CanError {
