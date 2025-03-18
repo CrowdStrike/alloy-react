@@ -14,7 +14,7 @@
 1. Test the component changes in the quickstart app
 1. Repeat pack and install steps as necessary
 1. Merge and release the component changes
-1. In alloy-quickstart `ui`: `npm install --save @crowdstrike/alloy-react`
+1. In alloy-quickstart `ui`: `npm install --save @crowdstrike/alloy-react@X.Y.Z`
 1. Merge alloy-quickstart changes if necessary
 
 ## Release process
