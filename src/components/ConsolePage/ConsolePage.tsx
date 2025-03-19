@@ -37,15 +37,20 @@ export function ConsolePage({ children, title, routes }: ConsolePageProps) {
   return (
     <PatternflyShim>
       <HashRouter>
-        <PageLayout title={title} routes={routes}>
+        <ConsolePageLayout title={title} routes={routes}>
           {children}
-        </PageLayout>
+        </ConsolePageLayout>
       </HashRouter>
     </PatternflyShim>
   );
 }
 
-function PageLayout({ children, title, routes }: ConsolePageProps) {
+// exported for testing so we can wrap in a testable MemoryRouter, but not beyond that
+export function ConsolePageLayout({
+  children,
+  title,
+  routes,
+}: ConsolePageProps) {
   const hasRoutes = routes !== undefined;
 
   const masthead = (
@@ -58,7 +63,7 @@ function PageLayout({ children, title, routes }: ConsolePageProps) {
     </Masthead>
   );
 
-  // useLocation can only be used inside of a Router, so we created this separate PageLayout component
+  // useLocation can only be used inside of a Router, so we created this separate ConsolePageLayout component
   const location = useLocation();
   const sidebar = hasRoutes ? (
     <PageSidebar>
@@ -67,7 +72,7 @@ function PageLayout({ children, title, routes }: ConsolePageProps) {
           <NavList>
             {routes.map((r) => {
               return (
-                <NavItem isActive={r.path === location.pathname}>
+                <NavItem isActive={r.path === location.pathname} key={r.path}>
                   <NavLink to={r.path}>{r.title}</NavLink>
                 </NavItem>
               );
@@ -84,7 +89,7 @@ function PageLayout({ children, title, routes }: ConsolePageProps) {
       {hasRoutes && (
         <Routes>
           {routes.map((r) => {
-            return <Route path={r.path} element={r.element} />;
+            return <Route path={r.path} element={r.element} key={r.path} />;
           })}
         </Routes>
       )}
