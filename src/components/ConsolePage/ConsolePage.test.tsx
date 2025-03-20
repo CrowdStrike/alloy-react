@@ -4,7 +4,7 @@ Object.assign(global, { TextEncoder });
 
 import { describe, expect, test } from "@jest/globals";
 import "@testing-library/jest-dom/jest-globals";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { ConsolePageLayout } from "./ConsolePage";
 
@@ -27,7 +27,7 @@ describe("ConsolePageLayout", () => {
     expect(screen.getByTestId("test-child")).toBeInTheDocument();
   });
 
-  test("displays multi page with navbar", () => {
+  test("displays multi page with working navbar", () => {
     const routes = [
       {
         title: "Non-Default",
@@ -41,36 +41,39 @@ describe("ConsolePageLayout", () => {
       },
     ];
 
-    const { container } = render(
+    render(
       <MemoryRouter initialEntries={["/default"]}>
         <ConsolePageLayout title="test-title" routes={routes} />
       </MemoryRouter>
     );
 
     // ensure title is rendered
-    const title = screen.getByText("test-title");
-    expect(title).toBeInTheDocument();
-    expect(title.tagName).toBe("H2");
+    expect(
+      screen.getByRole("heading", { name: "test-title" })
+    ).toBeInTheDocument();
 
     // ensure navbar contains route links
-    const nav = container.querySelector("nav");
+    const nav = screen.getByRole("navigation");
     expect(nav).toBeInTheDocument();
-    const navLinks = nav!.querySelectorAll("a");
-    expect(navLinks.length).toBe(routes.length);
-    for (let i = 0; i < navLinks?.length, i++; ) {
-      // ensure link properties match those passed by routes prop
-      expect(navLinks[i].textContent).toBe(routes[i].title);
-      expect(navLinks[i].href).toMatch(routes[i].path);
-      // ensure default link is active
-      if (routes[i].title == "Default") {
-        expect(navLinks[i].classList).toContain("active");
-      } else {
-        expect(navLinks[i].classList).not.toContain("active");
-      }
-    }
+    expect(within(nav).getAllByRole("link")).toHaveLength(routes.length);
 
-    // ensure matching route is visible, non matching route is not
+    // ensure default link is active and vice versa
+    expect(screen.getByText("Default")).toHaveClass("active");
+    expect(screen.getByText("Non-Default")).not.toHaveClass("active");
+
+    // ensure matching route is displayed, non matching route is not
     expect(screen.getByTestId("default-element")).toBeInTheDocument();
     expect(screen.queryByTestId("nondefault-element")).not.toBeInTheDocument();
+
+    // change routes
+    fireEvent.click(screen.getByText("Non-Default"));
+
+    // check nav link active class changes
+    expect(screen.getByText("Default")).not.toHaveClass("active");
+    expect(screen.getByText("Non-Default")).toHaveClass("active");
+
+    // ensure new route is visible, old route is not
+    expect(screen.queryByTestId("default-element")).not.toBeInTheDocument();
+    expect(screen.getByTestId("nondefault-element")).toBeInTheDocument();
   });
 });
