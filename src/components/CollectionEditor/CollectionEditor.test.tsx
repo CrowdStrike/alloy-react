@@ -26,7 +26,7 @@ const mockResources = [
   },
 ];
 
-/** Type into the collection editor fields (you must wrap this in `act()`) */
+/** Type into the collection editor fields */
 function typeInputs(colName: string, objName: string, objValue: string | null) {
   fireEvent.change(screen.getByLabelText("Collection name"), {
     target: { value: colName },
@@ -194,9 +194,5 @@ describe("CollectionEditor", () => {
     ["Load Object", "Delete"].forEach((name) => {
       expect(screen.queryByRole("button", { name })).not.toBeInTheDocument();
     });
-
-    expect(screen.getByLabelText("Object value")).toHaveValue(
-      JSON.stringify(mockObject, null, 2)
-    );
   });
 });

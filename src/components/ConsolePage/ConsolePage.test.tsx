@@ -19,9 +19,9 @@ describe("ConsolePageLayout", () => {
     );
 
     // ensure title is rendered
-    const title = screen.getByText("test-title");
-    expect(title).toBeInTheDocument();
-    expect(title.tagName).toBe("H2");
+    expect(
+      screen.getByRole("heading", { name: "test-title" })
+    ).toBeInTheDocument();
 
     // ensure {children} are rendered
     expect(screen.getByTestId("test-child")).toBeInTheDocument();
@@ -53,9 +53,9 @@ describe("ConsolePageLayout", () => {
     ).toBeInTheDocument();
 
     // ensure navbar contains route links
-    const nav = screen.getByRole("navigation");
-    expect(nav).toBeInTheDocument();
-    expect(within(nav).getAllByRole("link")).toHaveLength(routes.length);
+    expect(
+      within(screen.getByRole("navigation")).getAllByRole("link")
+    ).toHaveLength(routes.length);
 
     // ensure default link is active and vice versa
     expect(screen.getByText("Default")).toHaveClass("active");

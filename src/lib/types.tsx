@@ -47,9 +47,9 @@ interface CollectionModifyResponse extends ApiResponse {
     collection_name: string;
     /** Object key. */
     object_key: string;
-    /** Object last modified datetime, e.g. `2025-03-25T13:49:16.146417292Z` */
+    /** Object last modified datetime, e.g. `2025-03-25T13:49:16.146417292Z`. */
     last_modified_time: string;
-    /** Collection schema version, e.g. `v2.0` */
+    /** Collection schema version, e.g. `v2.0`. */
     schema_version: string;
   }[];
 }
@@ -62,4 +62,4 @@ export interface CollectionWriteResponse extends CollectionModifyResponse {}
 /**
  * Returned by `falcon.collection().delete()`. See {@link CollectionReadResponse} for an example.
  */
-export interface CollectionDeleteResponse extends CollectionReadResponse {}
+export interface CollectionDeleteResponse extends CollectionModifyResponse {}
