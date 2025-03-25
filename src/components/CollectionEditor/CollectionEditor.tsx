@@ -18,28 +18,33 @@ import "./collection-editor.css";
 type AlertVariant = "custom" | "info" | "warning" | "success" | "danger";
 
 interface CollectionEditorProps {
-  /** default collection name to display */
+  /** Default collection name to display. */
   collectionNameDefault?: string;
-  /** whether collection name is editable (use with `collectionNameDefault`) */
+  /** Whether collection name is editable (use with `collectionNameDefault`). */
   collectionNameEditable?: boolean;
-  /** default object name to display */
+  /** Default object name to display. */
   objectNameDefault?: string;
-  /** whether object name is editable (use with `collectionNameDefault`) */
+  /** Whether object name is editable (use with `collectionNameDefault`). */
   objectNameEditable?: boolean;
-  /** whether to load the object value on render (requires `collectionNameDefault` and `objectNameDefault`) */
+  /** Whether to load the object value on render (requires `collectionNameDefault` and `objectNameDefault`). */
   loadObjectValue?: boolean;
-  /** default object value to display if, when an object is loaded, it doesn't exist in the collection;
-  this includes cases where collection and/or object name are editable and user loads the object
-  manually, and when the value is loaded automatically on render via `loadObjectValue` */
+  /**
+   * Default object value to display if, when an object is loaded, it doesn't exist in the collection.
+   * This includes cases where collection and/or object name are editable and user loads the object
+   * manually, and when the value is loaded automatically on render via `loadObjectValue`
+   */
   objectValueDefault?: object;
-  /** whether the load button is visible */
+  /** Whether the load button is visible. */
   loadButtonVisible?: boolean;
-  /** whether the save button is visible */
+  /** Whether the save button is visible. */
   saveButtonVisible?: boolean;
-  /** whether the delete button is visible */
+  /** Whether the delete button is visible. */
   deleteButtonVisible?: boolean;
 }
 
+/**
+ * Provides a basic JSON editor to interact with collection objects.
+ */
 export function CollectionEditor({
   collectionNameDefault = "",
   collectionNameEditable = true,
@@ -166,24 +171,26 @@ export function CollectionEditor({
       <Form>
         <Grid hasGutter>
           <GridItem span={4}>
-            <FormGroup label="Collection name">
+            <FormGroup label="Collection name" fieldId="collection-name">
               <TextInput
                 value={collectionName}
                 onChange={(_, v) => {
                   setCollectionName(v);
                 }}
                 isDisabled={loading || !collectionNameEditable}
+                id="collection-name"
               />
             </FormGroup>
           </GridItem>
           <GridItem span={4}>
-            <FormGroup label="Object name">
+            <FormGroup label="Object name" fieldId="object-name">
               <TextInput
                 value={objectName}
                 onChange={(_, v) => {
                   setObjectName(v);
                 }}
                 isDisabled={loading || !objectNameEditable}
+                id="object-name"
               />
             </FormGroup>
           </GridItem>
@@ -224,7 +231,7 @@ export function CollectionEditor({
             </FormGroup>
           </GridItem>
           <GridItem span={12}>
-            <FormGroup label="Object value">
+            <FormGroup label="Object value" fieldId="object-value">
               <TextArea
                 autoResize
                 value={objectValue}
@@ -233,6 +240,7 @@ export function CollectionEditor({
                 }}
                 isDisabled={loading}
                 style={{ fontFamily: "monospace" }}
+                id="object-value"
               />
             </FormGroup>
           </GridItem>

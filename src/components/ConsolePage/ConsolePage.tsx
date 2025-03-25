@@ -22,17 +22,32 @@ import {
 import { PatternflyShim } from "../PatterflyShim";
 
 interface ConsolePageProps {
+  /** For single pages, pass in children components. */
   children?: ReactNode;
+  /** Title of the page to display in the masthead. */
   title: string;
+  /** For multi-pages, pass in routes to generate navigation structure. */
   routes?: ConsolePageRoute[];
 }
 
 interface ConsolePageRoute {
+  /**
+   * Path of the route e.g. `/home`. This path can be used to configure Falcon navigation directly
+   * to this route.
+   */
   path: string;
+  /** Title to display in the navigation (will not automatically be added as a heading in the page.) */
   title: string;
+  /** The element to render when the route is active. */
   element: ReactElement;
 }
 
+/**
+ * Represents a full Foundry UI page using the {@link https://www.patternfly.org/components/page|PatternFly Page}
+ * component. A `ConsolePage` may be a single page (in this case, just pass child `<PageSection>`s)
+ * or contain its own navigation structure (in this case, pass in `routes` where each `element` contains
+ * `<PageSection>`s).
+ */
 export function ConsolePage({ children, title, routes }: ConsolePageProps) {
   return (
     <PatternflyShim>
@@ -45,7 +60,10 @@ export function ConsolePage({ children, title, routes }: ConsolePageProps) {
   );
 }
 
-// exported for testing so we can wrap in a testable MemoryRouter, but not beyond that
+/**
+ * Internal component representing the layout of a `ConsolePage`, but without a router. This is
+ * exclusively for testing -- app builders should just use `ConsolePage`.
+ */
 export function ConsolePageLayout({
   children,
   title,
