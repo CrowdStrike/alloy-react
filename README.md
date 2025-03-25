@@ -157,3 +157,5 @@ useEffect(() => {
 Use these types to perform type assertions on responses from foundry-js and safely interact with those responses (rather than asserting them as `any`). See the documentation for each type for more details.
 
 - `CollectionReadResponse` - Returned from `falcon.collection().read()`.
+- `CollectionWriteResponse` - Returned from `falcon.collection().write()`.
+- `CollectionDeleteResponse` - Returned from `falcon.collection().delete()`.
