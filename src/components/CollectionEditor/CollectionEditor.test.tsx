@@ -27,19 +27,13 @@ const mockResources = [
 ];
 
 /** Type into the collection editor fields (you must wrap this in `act()`) */
-function typeInputs(
-  colName: string | null,
-  objName: string | null,
-  objValue: string | null
-) {
-  if (colName)
-    fireEvent.change(screen.getByLabelText("Collection name"), {
-      target: { value: colName },
-    });
-  if (objName)
-    fireEvent.change(screen.getByLabelText("Object name"), {
-      target: { value: objName },
-    });
+function typeInputs(colName: string, objName: string, objValue: string | null) {
+  fireEvent.change(screen.getByLabelText("Collection name"), {
+    target: { value: colName },
+  });
+  fireEvent.change(screen.getByLabelText("Object name"), {
+    target: { value: objName },
+  });
   if (objValue)
     fireEvent.change(screen.getByLabelText("Object value"), {
       target: { value: objValue },
@@ -60,19 +54,14 @@ describe("CollectionEditor", () => {
 
     render(<CollectionEditor />);
 
-    const colName = screen.getByLabelText("Collection name");
-    expect(colName).toBeEnabled();
-    expect(colName).toHaveValue("");
-    const objName = screen.getByLabelText("Object name");
-    expect(objName).toBeEnabled();
-    expect(objName).toHaveValue("");
-    const objValue = screen.getByLabelText("Object value");
-    expect(objValue).toBeEnabled();
-    expect(objValue).toHaveValue("");
+    ["Collection name", "Object name", "Object value"].forEach((label) => {
+      expect(screen.getByLabelText(label)).toBeEnabled();
+      expect(screen.getByLabelText(label)).toHaveValue("");
+    });
 
-    expect(screen.getByRole("button", { name: "Load Object" })).toBeEnabled();
-    expect(screen.getByRole("button", { name: "Save" })).toBeEnabled();
-    expect(screen.getByRole("button", { name: "Delete" })).toBeEnabled();
+    ["Load Object", "Save", "Delete"].forEach((name) => {
+      expect(screen.getByRole("button", { name })).toBeEnabled();
+    });
   });
 
   test("can load an object", async () => {
@@ -160,5 +149,54 @@ describe("CollectionEditor", () => {
       collection: "col-name",
     });
     expect(mockCollection.delete).toHaveBeenCalledWith("obj-name");
+  });
+
+  test("can auto-load a locked object", async () => {
+    const mockCollection = {
+      read: jest
+        .fn<() => Promise<CollectionReadResponse>>()
+        .mockResolvedValue(mockObject),
+    };
+    const mockFalcon = {
+      collection: jest.fn().mockReturnValue(mockCollection),
+    };
+    (useFoundry as jest.Mock).mockReturnValue({
+      falcon: mockFalcon,
+      isInitialized: true,
+    });
+
+    // await/async to ensure load-on-render completes
+    await act(async () => {
+      render(
+        <CollectionEditor
+          collectionNameDefault="col-name"
+          collectionNameEditable={false}
+          objectNameDefault="obj-name"
+          objectNameEditable={false}
+          loadObjectValue={true}
+          loadButtonVisible={false}
+          deleteButtonVisible={false}
+        />
+      );
+    });
+
+    const colName = screen.getByLabelText("Collection name");
+    expect(colName).toBeDisabled();
+    expect(colName).toHaveValue("col-name");
+    const objName = screen.getByLabelText("Object name");
+    expect(objName).toBeDisabled();
+    expect(objName).toHaveValue("obj-name");
+    const objValue = screen.getByLabelText("Object value");
+    expect(objValue).toBeEnabled();
+    expect(objValue).toHaveValue(JSON.stringify(mockObject, null, 2));
+
+    expect(screen.getByRole("button", { name: "Save" })).toBeEnabled();
+    ["Load Object", "Delete"].forEach((name) => {
+      expect(screen.queryByRole("button", { name })).not.toBeInTheDocument();
+    });
+
+    expect(screen.getByLabelText("Object value")).toHaveValue(
+      JSON.stringify(mockObject, null, 2)
+    );
   });
 });
