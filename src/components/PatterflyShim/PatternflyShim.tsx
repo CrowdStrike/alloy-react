@@ -8,6 +8,9 @@ interface PatternflyShimProps {
   children: ReactNode;
 }
 
+/**
+ * Internal component to load PatternFly styles and handle light/dark theme changes.
+ */
 export function PatternflyShim({ children }: PatternflyShimProps) {
   const { data } = useFoundry();
 

@@ -5,9 +5,13 @@ import { PatternflyShim } from "../PatterflyShim";
 import "./ConsoleExtension.css";
 
 interface ConsoleExtensionProps {
-  children?: ReactNode;
+  /** Children to display within the extension. */
+  children: ReactNode;
 }
 
+/**
+ * Represents a Foundry UI extension. Pass any children you'd like.
+ */
 export function ConsoleExtension({ children }: ConsoleExtensionProps) {
   return (
     <PatternflyShim>
